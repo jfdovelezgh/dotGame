@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+1 <html>
+2   <head>
+3     <title>Livestream</title>
+4   </head>
+5   <body>
+6     <h1>Blah</h1>
+7     <main><canvas></canvas></main>
+8     <section>Score: <span>0</span></section>
+9     <script>
+10       const canvas = document.querySelector('canvas')
+11       canvas.width = 300
+12       canvas.height = 300
+13       const ctx = canvas.getContext('2d')
+14
+15       let player_x = 20
+16       let player_y = 20
+17       let base_x = Math.floor(Math.random()*250)
+18       let base_y = Math.floor(Math.random()*250)
+19
+20       function step() {
+21         ctx.clearRect(0,0,300,300)
+22         ctx.fillStyle = 'red'
+23         ctx.fillRect(player_x, player_y, 10, 10)
+24         ctx.strokeRect(base_x, base_y, 50, 50)
+25         requestAnimationFrame(step)
+26
+27         if (player_x >= base_x && player_y >= base_y && player_x < base_x+50 && player_y < base_y+50) {
+28           base_x = Math.floor(Math.random()*250)
+29           base_y = Math.floor(Math.random()*250)
+30         }
+31       }
+32       requestAnimationFrame(step)
+33
+34       function handleInput(event) {
+35         const key = event.key
+36         if (key === 'a') {
+37           player_x -= 5
+38         } else if (key === 'w') {
+39           player_y -= 5
+40         } else if (key === 'd') {
+41           player_x += 5
+42         } else if (key === 's') {
+43           player_y += 5
+44         }
+45       }
+46
+47       document.addEventListener('keypress', handleInput)
+48     </script>
+49     <style>
+50       canvas {
+51         border: 1px solid black;
+52       }
+53   </body>
+54 </html>
